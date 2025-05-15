@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BloxBay Inauguration</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
     * {
@@ -14,10 +14,10 @@
     }
 
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(45deg, #0f2027, #203a43, #2c5364);
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(45deg, #dea33e, #f4c77a, #ffe9b8);
       background-size: 400%;
-      color: white;
+      color: #333;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -43,14 +43,14 @@
       width: 100%;
       height: 100%;
       z-index: -1;
-      opacity: 0.3;
+      opacity: 0.4;
     }
 
     .main-content {
       display: none;
       opacity: 0;
       transition: opacity 1s ease, filter 1s ease;
-      filter: brightness(0.8);
+      filter: brightness(0.9);
     }
 
     .main-content.visible {
@@ -61,15 +61,22 @@
     }
 
     h1 {
-      font-size: 3rem;
-      margin-bottom: 15px;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      text-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      animation: fadeInText 2s ease-in-out;
+    }
+
+    @keyframes fadeInText {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     h2 {
       font-size: 1.8rem;
       margin-bottom: 40px;
-      color: #e0e0e0;
+      color: #444;
       font-weight: 400;
       display: flex;
       flex-direction: column;
@@ -78,17 +85,24 @@
     }
 
     .launch-btn {
-      background: linear-gradient(45deg, #ff6f61, #ff3b2e);
+      background: linear-gradient(45deg, #dea33e, #f4c77a);
       border: none;
-      padding: 15px 40px;
-      font-size: 1.2rem;
-      color: white;
+      padding: 15px 50px;
+      font-size: 1.3rem;
+      color: #fff;
       cursor: pointer;
       border-radius: 50px;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 5px 15px rgba(255, 111, 97, 0.4);
+      box-shadow: 0 5px 20px rgba(222, 163, 62, 0.5);
       position: relative;
       overflow: hidden;
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
     }
 
     .launch-btn::before {
@@ -101,7 +115,7 @@
       background: linear-gradient(
         90deg,
         transparent,
-        rgba(255, 255, 255, 0.4),
+        rgba(255, 255, 255, 0.5),
         transparent
       );
       transition: 0.5s;
@@ -112,16 +126,16 @@
     }
 
     .launch-btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 8px 25px rgba(255, 111, 97, 0.6);
+      transform: scale(1.15);
+      box-shadow: 0 10px 30px rgba(222, 163, 62, 0.7);
     }
 
     .launch-btn::after {
       content: '✨';
       position: absolute;
       top: 10px;
-      right: 10px;
-      font-size: 1.5rem;
+      right: 15px;
+      font-size: 1.8rem;
       opacity: 0;
       transition: opacity 0.3s ease;
     }
@@ -132,9 +146,14 @@
 
     .footer {
       margin-top: 60px;
-      font-size: 0.9rem;
-      color: #ccc;
-      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+      font-size: 1rem;
+      color: #555;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+      transition: color 0.3s ease;
+    }
+
+    .footer:hover {
+      color: #dea33e;
     }
 
     /* Curtain Styles */
@@ -147,17 +166,17 @@
       z-index: 1000;
       display: flex;
       cursor: pointer;
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1));
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9));
     }
 
     .curtain-left, .curtain-right {
       width: 50%;
       height: 100%;
-      background: linear-gradient(to bottom, #3a0c0c, #6a1a1a);
+      background: linear-gradient(to bottom, #b8860b, #dea33e);
       position: relative;
       overflow: hidden;
       transition: transform 2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 0, 0, 0.5);
+      box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 0, 0, 0.4);
     }
 
     .curtain-left::before, .curtain-right::before {
@@ -166,9 +185,9 @@
       top: 0;
       width: 20px;
       height: 100%;
-      background: linear-gradient(to right, rgba(255, 255, 255, 0.1), transparent);
+      background: linear-gradient(to right, rgba(255, 255, 255, 0.2), transparent);
       transform: skewX(-10deg);
-      opacity: 0.5;
+      opacity: 0.6;
     }
 
     .curtain-left::before {
@@ -200,7 +219,7 @@
       top: 20%;
       width: 30px;
       height: 100px;
-      background: linear-gradient(to bottom, #ffd700, #b8860b);
+      background: linear-gradient(to bottom, #ffd700, #dea33e);
       border-radius: 5px;
       z-index: 1001;
       transform-origin: top;
@@ -216,11 +235,11 @@
     }
 
     .curtain-container.open .tassel-left {
-      transform: translateX(-200%) rotate(20deg);
+      transform: translateX(-200%) rotate(20deg) scale(1.1);
     }
 
     .curtain-container.open .tassel-right {
-      transform: translateX(200%) rotate(-20deg);
+      transform: translateX(200%) rotate(-20deg) scale(1.1);
     }
 
     /* Ribbon Styles */
@@ -233,13 +252,14 @@
       z-index: 1002;
       display: flex;
       transform: translateY(-50%);
+      background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAAXNSR0IArs4c6QAAABJJREFUGFdjZGBg+M/AwMDIwMDAwAABuABB4gAAAABJRU5ErkJggg==') repeat; /* Subtle texture */
     }
 
     .ribbon-left, .ribbon-right {
       width: 50%;
       height: 100%;
-      background: linear-gradient(to bottom, #c8102e, #a00c26);
-      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.2);
+      background: linear-gradient(to bottom, #dea33e, #b8860b);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.3);
       transition: all 1s ease;
     }
 
@@ -252,12 +272,12 @@
     }
 
     .curtain-container.open .ribbon-left {
-      transform: translateX(-50%) rotate(15deg) translateY(100px);
+      transform: translateX(-50%) rotate(15deg) translateY(100px) scale(1.1);
       opacity: 0;
     }
 
     .curtain-container.open .ribbon-right {
-      transform: translateX(50%) rotate(-15deg) translateY(100px);
+      transform: translateX(50%) rotate(-15deg) translateY(100px) scale(1.1);
       opacity: 0;
     }
 
@@ -265,17 +285,18 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      width: 40px;
-      height: 40px;
-      background: radial-gradient(circle, #ffd700, #b8860b);
+      width: 50px;
+      height: 50px;
+      background: radial-gradient(circle, #ffd700, #dea33e);
       border-radius: 50%;
       transform: translate(-50%, -50%) scale(1);
       z-index: 1003;
       transition: transform 0.5s ease, opacity 0.5s ease;
+      box-shadow: 0 0 15px rgba(222, 163, 62, 0.6);
     }
 
     .curtain-container.open .ribbon-bow {
-      transform: translate(-50%, -50%) scale(1.5);
+      transform: translate(-50%, -50%) scale(1.8);
       opacity: 0;
     }
 
@@ -284,61 +305,63 @@
       top: 60%;
       left: 50%;
       transform: translate(-50%, -50%);
-      color: #ffd700;
-      font-family: 'Great Vibes', cursive;
-      font-size: 2.5rem;
-      text-shadow: 0 0 15px rgba(255, 215, 0, 0.9), 0 0 5px rgba(0, 0, 0, 0.5);
+      color: #333;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      text-shadow: 0 0 15px rgba(222, 163, 62, 0.9), 0 0 5px rgba(0, 0, 0, 0.5);
       animation: glow 2s ease-in-out infinite;
       pointer-events: none;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
+      gap: 15px;
       margin-top: 20px;
     }
 
     .curtain-prompt img {
-      width: 150px;
-      height: 40px;
-      background: rgba(255, 255, 255, 0.1); /* Fallback if image fails */
+      width: 180px;
+      height: 48px;
+      background: rgba(255, 255, 255, 0.2);
       display: block;
+      border-radius: 5px;
     }
 
     @keyframes glow {
-      0% { text-shadow: 0 0 15px rgba(255, 215, 0, 0.9), 0 0 5px rgba(0, 0, 0, 0.5); }
-      50% { text-shadow: 0 0 25px rgba(255, 215, 0, 1), 0 0 10px rgba(0, 0, 0, 0.7); }
-      100% { text-shadow: 0 0 15px rgba(255, 215, 0, 0.9), 0 0 5px rgba(0, 0, 0, 0.5); }
+      0% { text-shadow: 0 0 15px rgba(222, 163, 62, 0.9), 0 0 5px rgba(0, 0, 0, 0.5); }
+      50% { text-shadow: 0 0 25px rgba(222, 163, 62, 1), 0 0 10px rgba(0, 0, 0, 0.7); }
+      100% { text-shadow: 0 0 15px rgba(222, 163, 62, 0.9), 0 0 5px rgba(0, 0, 0, 0.5); }
     }
 
     .stage-floor {
       position: absolute;
       bottom: 0;
       width: 100%;
-      height: 50px;
+      height: 60px;
       background: linear-gradient(to top, #1a0f0f, #2a1f1f);
       opacity: 0;
       transition: opacity 1s ease;
+      box-shadow: 0 -10px 30px rgba(222, 163, 62, 0.3); /* Spotlight effect */
     }
 
     .main-content.visible ~ .stage-floor {
-      opacity: 0.7;
+      opacity: 0.8;
     }
 
     @media (max-width: 600px) {
-      h1 { font-size: 2rem; }
-      h2 { font-size: 1.3rem; }
+      h1 { font-size: 2.2rem; }
+      h2 { font-size: 1.4rem; }
       .launch-btn { 
-        padding: 12px 30px; 
-        font-size: 1rem; 
+        padding: 12px 35px; 
+        font-size: 1.1rem; 
       }
-      .footer { font-size: 0.8rem; }
+      .footer { font-size: 0.85rem; }
       .curtain-prompt { 
-        font-size: 1.8rem; 
+        font-size: 2rem; 
         top: 65%; 
       }
       .curtain-prompt img { 
-        width: 120px; 
-        height: 32px; 
+        width: 130px; 
+        height: 35px; 
       }
       .tassel { 
         width: 20px; 
@@ -348,8 +371,11 @@
         height: 40px; 
       }
       .ribbon-bow { 
-        width: 30px; 
-        height: 30px; 
+        width: 35px; 
+        height: 35px; 
+      }
+      .stage-floor { 
+        height: 40px; 
       }
     }
   </style>
@@ -368,18 +394,18 @@
       <div class="ribbon-bow"></div>
     </div>
     <div class="curtain-prompt">
-      Click to Cut the Ribbon & Unveil
-      <img src="bloxbaylogo.png" alt="BloxBay Logo" class="img-fluid" width="150" height="40">
+      Click to Unveil BloxBay
+      <img src="bloxbaylogo.png" alt="BloxBay Logo" class="img-fluid" width="180" height="48">
     </div>
   </div>
 
   <canvas id="particle-canvas"></canvas>
 
   <div class="main-content" id="main-content">
-    <h1 data-aos="fade-up" data-aos-delay="200">Inauguration of BloxBay</h1>
+    <h1 data-aos="fade-up" data-aos-delay="200">BloxBay Grand Inauguration</h1>
     <h2 data-aos="fade-up" data-aos-delay="400">
-      <img src="bloxbaylogo.png" alt="BloxBay Logo" class="img-fluid" width="150" height="40">
-      A Project by Maxime & Sylvain
+      <img src="bloxbaylogo.png" alt="BloxBay Logo" class="img-fluid" width="180" height="48">
+      A Vision by Maxime & Sylvain
     </h2>
 
     <button 
@@ -392,7 +418,7 @@
     </button>
 
     <div class="footer" data-aos="fade-up" data-aos-delay="800">
-      Developed with ❤️ by Encurr IT Family | © 2025 All rights reserved.
+      Developed with ❤️ by Encureit Family| © 2025 All Rights Reserved
     </div>
   </div>
 
@@ -400,7 +426,7 @@
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    AOS.init({ duration: 1000, once: true, disable: true }); // Disabled initially
+    AOS.init({ duration: 1000, once: true, disable: true });
 
     // Curtain and ribbon interaction
     const curtain = document.getElementById('curtain');
@@ -411,8 +437,8 @@
       setTimeout(() => {
         curtain.style.display = 'none';
         mainContent.classList.add('visible');
-        AOS.init({ duration: 1000, once: true }); // Enable AOS after animations
-      }, 3000); // Ribbon (1s) + Curtain (2s)
+        AOS.init({ duration: 1000, once: true });
+      }, 3000);
     });
 
     // Particle effect
@@ -422,29 +448,28 @@
     canvas.height = window.innerHeight;
 
     const particles = [];
-    const particleCount = 100;
+    const particleCount = 150; // Increased for more festive effect
     let isRibbonCutting = false;
 
     class Particle {
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 3 + 1;
-        this.speedX = Math.random() * 1 - 0.5;
-        this.speedY = Math.random() * 1 - 0.5;
+        this.size = Math.random() * 4 + 1;
+        this.speedX = Math.random() * 1.5 - 0.75;
+        this.speedY = Math.random() * 1.5 - 0.75;
         this.color = isRibbonCutting && Math.random() > 0.3 
-          ? 'rgba(255, 215, 0, 0.8)' 
+          ? 'rgba(222, 163, 62, 0.9)' 
           : Math.random() > 0.5 
             ? 'rgba(255, 255, 255, 0.8)' 
-            : 'rgba(255, 215, 0, 0.6)';
+            : 'rgba(222, 163, 62, 0.7)';
+        this.isSparkle = Math.random() > 0.7; // Add sparkle effect
       }
 
       update() {
         this.x += this.speedX;
         this.y += this.speedY;
-
-        if (this.size > 0.2) this.size -= 0.01;
-
+        if (this.size > 0.2) this.size -= this.isSparkle ? 0.02 : 0.01;
         if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
         if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
       }
@@ -452,7 +477,14 @@
       draw() {
         ctx.fillStyle = this.color;
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        if (this.isSparkle) {
+          ctx.moveTo(this.x - this.size, this.y);
+          ctx.lineTo(this.x + this.size, this.y);
+          ctx.moveTo(this.x, this.y - this.size);
+          ctx.lineTo(this.x, this.y + this.size); // Cross shape for sparkle
+        } else {
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        }
         ctx.fill();
       }
     }
@@ -476,12 +508,11 @@
       requestAnimationFrame(animate);
     }
 
-    // Trigger golden particles during ribbon cut
     curtain.addEventListener('click', () => {
       isRibbonCutting = true;
       setTimeout(() => {
         isRibbonCutting = false;
-      }, 1000); // Match ribbon animation duration
+      }, 1500); // Extended for more dramatic effect
     });
 
     init();
