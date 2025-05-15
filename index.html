@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BloxBay Inauguration</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(45deg, #0f2027, #203a43, #2c5364);
+      background-size: 400%;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+      flex-direction: column;
+      padding: 20px;
+      overflow: hidden;
+      animation: gradient 15s ease infinite;
+      position: relative;
+    }
+
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.3;
+    }
+
+    .main-content {
+      display: none;
+      opacity: 0;
+      transition: opacity 1s ease, filter 1s ease;
+      filter: brightness(0.8);
+    }
+
+    .main-content.visible {
+      display: flex;
+      flex-direction: column;
+      opacity: 1;
+      filter: brightness(1);
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 40px;
+      color: #e0e0e0;
+      font-weight: 400;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .launch-btn {
+      background: linear-gradient(45deg, #ff6f61, #ff3b2e);
+      border: none;
+      padding: 15px 40px;
+      font-size: 1.2rem;
+      color: white;
+      cursor: pointer;
+      border-radius: 50px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 5px 15px rgba(255, 111, 97, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .launch-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+      );
+      transition: 0.5s;
+    }
+
+    .launch-btn:hover::before {
+      left: 100%;
+    }
+
+    .launch-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 25px rgba(255, 111, 97, 0.6);
+    }
+
+    .launch-btn::after {
+      content: '✨';
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .launch-btn:hover::after {
+      opacity: 1;
+    }
+
+    .footer {
+      margin-top: 60px;
+      font-size: 0.9rem;
+      color: #ccc;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Curtain Styles */
+    .curtain-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1000;
+      display: flex;
+      cursor: pointer;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1));
+    }
+
+    .curtain-left, .curtain-right {
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(to bottom, #3a0c0c, #6a1a1a);
+      position: relative;
+      overflow: hidden;
+      transition: transform 2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .curtain-left::before, .curtain-right::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 20px;
+      height: 100%;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0.1), transparent);
+      transform: skewX(-10deg);
+      opacity: 0.5;
+    }
+
+    .curtain-left::before {
+      left: 30px;
+    }
+
+    .curtain-right::before {
+      right: 30px;
+    }
+
+    .curtain-left {
+      transform: translateX(0) scaleY(1);
+    }
+
+    .curtain-right {
+      transform: translateX(0) scaleY(1);
+    }
+
+    .curtain-container.open .curtain-left {
+      transform: translateX(-100%) scaleY(1.05);
+    }
+
+    .curtain-container.open .curtain-right {
+      transform: translateX(100%) scaleY(1.05);
+    }
+
+    .tassel {
+      position: absolute;
+      top: 20%;
+      width: 30px;
+      height: 100px;
+      background: linear-gradient(to bottom, #ffd700, #b8860b);
+      border-radius: 5px;
+      z-index: 1001;
+      transform-origin: top;
+      transition: transform 2s ease;
+    }
+
+    .tassel-left {
+      left: 95%;
+    }
+
+    .tassel-right {
+      right: 95%;
+    }
+
+    .curtain-container.open .tassel-left {
+      transform: translateX(-200%) rotate(20deg);
+    }
+
+    .curtain-container.open .tassel-right {
+      transform: translateX(200%) rotate(-20deg);
+    }
+
+    /* Ribbon Styles */
+    .ribbon-container {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      z-index: 1002;
+      display: flex;
+      transform: translateY(-50%);
+    }
+
+    .ribbon-left, .ribbon-right {
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(to bottom, #c8102e, #a00c26);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.2);
+      transition: all 1s ease;
+    }
+
+    .ribbon-left {
+      transform: translateX(0);
+    }
+
+    .ribbon-right {
+      transform: translateX(0);
+    }
+
+    .curtain-container.open .ribbon-left {
+      transform: translateX(-50%) rotate(15deg) translateY(100px);
+      opacity: 0;
+    }
+
+    .curtain-container.open .ribbon-right {
+      transform: translateX(50%) rotate(-15deg) translateY(100px);
+      opacity: 0;
+    }
+
+    .ribbon-bow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 40px;
+      height: 40px;
+      background: radial-gradient(circle, #ffd700, #b8860b);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      z-index: 1003;
+      transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+
+    .curtain-container.open .ribbon-bow {
+      transform: translate(-50%, -50%) scale(1.5);
+      opacity: 0;
+    }
+
+    .curtain-prompt {
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #ffd700;
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5rem;
+      text-shadow: 0 0 15px rgba(255, 215, 0, 0.9), 0 0 5px rgba(0, 0, 0, 0.5);
+      animation: glow 2s ease-in-out infinite;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .curtain-prompt img {
+      width: 150px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1); /* Fallback if image fails */
+      display: block;
+    }
+
+    @keyframes glow {
+      0% { text-shadow: 0 0 15px rgba(255, 215, 0, 0.9), 0 0 5px rgba(0, 0, 0, 0.5); }
+      50% { text-shadow: 0 0 25px rgba(255, 215, 0, 1), 0 0 10px rgba(0, 0, 0, 0.7); }
+      100% { text-shadow: 0 0 15px rgba(255, 215, 0, 0.9), 0 0 5px rgba(0, 0, 0, 0.5); }
+    }
+
+    .stage-floor {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 50px;
+      background: linear-gradient(to top, #1a0f0f, #2a1f1f);
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .main-content.visible ~ .stage-floor {
+      opacity: 0.7;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.3rem; }
+      .launch-btn { 
+        padding: 12px 30px; 
+        font-size: 1rem; 
+      }
+      .footer { font-size: 0.8rem; }
+      .curtain-prompt { 
+        font-size: 1.8rem; 
+        top: 65%; 
+      }
+      .curtain-prompt img { 
+        width: 120px; 
+        height: 32px; 
+      }
+      .tassel { 
+        width: 20px; 
+        height: 80px; 
+      }
+      .ribbon-container { 
+        height: 40px; 
+      }
+      .ribbon-bow { 
+        width: 30px; 
+        height: 30px; 
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="curtain-container" id="curtain">
+    <div class="curtain-left">
+      <div class="tassel tassel-left"></div>
+    </div>
+    <div class="curtain-right">
+      <div class="tassel tassel-right"></div>
+    </div>
+    <div class="ribbon-container">
+      <div class="ribbon-left"></div>
+      <div class="ribbon-right"></div>
+      <div class="ribbon-bow"></div>
+    </div>
+    <div class="curtain-prompt">
+      Click to Cut the Ribbon & Unveil
+      <img src="bloxbaylogo.png" alt="BloxBay Logo" class="img-fluid" width="150" height="40">
+    </div>
+  </div>
+
+  <canvas id="particle-canvas"></canvas>
+
+  <div class="main-content" id="main-content">
+    <h1 data-aos="fade-up" data-aos-delay="200">Inauguration of BloxBay</h1>
+    <h2 data-aos="fade-up" data-aos-delay="400">
+      <img src="bloxbaylogo.png" alt="BloxBay Logo" class="img-fluid" width="150" height="40">
+      A Project by Maxime & Sylvain
+    </h2>
+
+    <button 
+      class="launch-btn" 
+      onclick="window.open('http://www.bloxbay.gg/', '_blank')"
+      data-aos="zoom-in" 
+      data-aos-delay="600"
+    >
+      🚀 Launch BloxBay
+    </button>
+
+    <div class="footer" data-aos="fade-up" data-aos-delay="800">
+      Developed with ❤️ by Encurr IT Family | © 2025 All rights reserved.
+    </div>
+  </div>
+
+  <div class="stage-floor"></div>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000, once: true, disable: true }); // Disabled initially
+
+    // Curtain and ribbon interaction
+    const curtain = document.getElementById('curtain');
+    const mainContent = document.getElementById('main-content');
+
+    curtain.addEventListener('click', () => {
+      curtain.classList.add('open');
+      setTimeout(() => {
+        curtain.style.display = 'none';
+        mainContent.classList.add('visible');
+        AOS.init({ duration: 1000, once: true }); // Enable AOS after animations
+      }, 3000); // Ribbon (1s) + Curtain (2s)
+    });
+
+    // Particle effect
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles = [];
+    const particleCount = 100;
+    let isRibbonCutting = false;
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 1 - 0.5;
+        this.speedY = Math.random() * 1 - 0.5;
+        this.color = isRibbonCutting && Math.random() > 0.3 
+          ? 'rgba(255, 215, 0, 0.8)' 
+          : Math.random() > 0.5 
+            ? 'rgba(255, 255, 255, 0.8)' 
+            : 'rgba(255, 215, 0, 0.6)';
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.size > 0.2) this.size -= 0.01;
+
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+      }
+
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function init() {
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((particle, index) => {
+        particle.update();
+        particle.draw();
+        if (particle.size <= 0.2) {
+          particles.splice(index, 1);
+          particles.push(new Particle());
+        }
+      });
+      requestAnimationFrame(animate);
+    }
+
+    // Trigger golden particles during ribbon cut
+    curtain.addEventListener('click', () => {
+      isRibbonCutting = true;
+      setTimeout(() => {
+        isRibbonCutting = false;
+      }, 1000); // Match ribbon animation duration
+    });
+
+    init();
+    animate();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>
